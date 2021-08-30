@@ -5,7 +5,8 @@ export const Container = styled.div`
   width: 49%;
   position: relative;
   min-width: 190px;
-  height: 13.6rem;
+  min-height: 13.6rem;
+  height: min-content;
   color: white;
   border-radius: 4px;
   box-shadow: 0px 3px 6px ${theme.shadow};
@@ -16,6 +17,26 @@ export const Container = styled.div`
     css`
       background: ${props.backgroundColor};
     `};
+
+  @media (max-width: 633px) {
+    width: 100%;
+  }
+
+  .expanded {
+    min-height: 6rem;
+    height: min-content;
+    overflow: visible;
+    -webkit-line-clamp: none;
+  }
+
+  .withdrawn {
+    height: 6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
 export const Header = styled.div`
   display: flex;
@@ -88,13 +109,8 @@ export const Body = styled.div`
   opacity: 0.8;
   font-size: 1rem;
   margin-bottom: 1rem;
-  height: 6rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
   max-width: 100%;
+  cursor: pointer;
 
   ::-webkit-scrollbar-track {
     background-color: rgba(244, 244, 244, 0.4);
@@ -148,6 +164,11 @@ export const PopUp = styled.div`
   .footer {
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media (max-width: 628px) {
+    top: 15%;
+    left: 25%;
   }
 `
 

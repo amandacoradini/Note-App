@@ -28,24 +28,13 @@ const Notes = ({ notes }) => {
 
   const handleOnChange = useCallback(
     e => {
-      const index = noteList.findIndex(item => {
-        return item.id === e.currentTarget.id
-      })
-
-      const newNoteState = { ...noteList[index], complete: !noteList[index].complete }
-      const newList = noteList
-      newList[index] = newNoteState
-
-      if (!newNoteState.complete) {
-        const newCompletedList = completedNotes.filter(item => item.id !== newList[index].id)
-        setCompletedNotes(newCompletedList)
-      } else {
-        setCompletedNotes(oldList => [newNoteState, ...oldList])
-      }
-
+      const changedNote = noteList.filter(note => note.id === e.currentTarget.id)
+      const list = noteList.filter(note => note.id !== e.currentTarget.id)
+      const newList = [...list, { ...changedNote[0], complete: !changedNote[0].complete }]
       setNoteList(newList)
+      setCompletedNotes(newList.filter(note => note.complete))
     },
-    [completedNotes, noteList, setCompletedNotes, setNoteList]
+    [noteList, setCompletedNotes, setNoteList]
   )
 
   return (
@@ -127,7 +116,18 @@ const Notes = ({ notes }) => {
               </button>
             </div>
           </Header>
-          <Body isComplete={note.complete}>{note.description}</Body>
+          <Body
+            id={`body-card-${note.id}`}
+            isComplete={note.complete}
+            className="withdrawn"
+            onClick={() => {
+              const card = document.getElementById(`body-card-${note.id}`)
+              if (card.className === 'expanded') card.className = 'withdrawn'
+              else card.className = 'expanded'
+            }}
+          >
+            {note.description}
+          </Body>
           <Footer isComplete={note.complete}>
             {`${new Date(note.date).toLocaleString('en', { month: 'short' })} ${new Date(note.date)
               .getDate()

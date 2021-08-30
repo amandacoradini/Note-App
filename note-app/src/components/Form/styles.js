@@ -36,6 +36,13 @@ export const Container = styled.div`
   .col-1 {
     width: 61%;
   }
+
+  @media (max-width: 600px) {
+    width: 80%;
+    form {
+      height: 83%;
+    }
+  }
 `
 
 export const Styled = styled.div`

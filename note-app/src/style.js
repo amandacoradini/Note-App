@@ -4,9 +4,10 @@ import theme from './styles/theme'
 export const Container = styled.div`
   padding: 0.625rem;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   flex: 1;
-  padding: 5% 20% 5% 20%;
+  padding: 5% 20% 0% 20%;
 
   .no-result-search {
     width: 100%;
@@ -18,6 +19,7 @@ export const Container = styled.div`
     justify-content: center;
     font-size: 2.813rem;
     color: ${theme.text.secondary};
+    text-align: center;
   }
 
   .progress-bar-style {
@@ -25,6 +27,15 @@ export const Container = styled.div`
     margin-bottom: 3%;
     color: ${theme.text.primary};
     font-size: 1.125rem;
+
+    @media (max-width: 830px) {
+      margin-bottom: 5%;
+      margin-top: 5.5%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 5% 5% 0% 5%;
   }
 `
 
@@ -107,6 +118,17 @@ export const AddButton = styled.button`
   img {
     margin-right: 1rem;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0px;
+    border-radius: 50%;
+    justify-content: center;
+    padding: 2%;
+
+    img {
+      margin-right: 0rem;
+    }
+  }
 `
 
 export const Progress = styled.div`
@@ -130,8 +152,12 @@ export const NotesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: min-content;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+
+  @media (max-width: 633px) {
+    justify-content: center;
+  }
 `
 
 export const ModalBackground = styled.div`
