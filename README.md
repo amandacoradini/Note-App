@@ -3,6 +3,7 @@
 Run project:
 
 npm install
+
 npm start
 
 run tests:
