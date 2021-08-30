@@ -74,6 +74,7 @@ const Form = () => {
               <input
                 name="title"
                 id="title"
+                data-cy="add-title"
                 value={newNoteFormData.title}
                 onChange={e =>
                   setNewNoteFormData(prevState => {
@@ -86,6 +87,7 @@ const Form = () => {
             <Styled style={{ marginTop: '5%', height: '81%' }}>
               <textarea
                 name="description"
+                data-cy="add-description"
                 id="description"
                 placeholder="Add description..."
                 value={newNoteFormData.description}
@@ -100,6 +102,7 @@ const Form = () => {
           <Styled style={{ width: '36%', height: '2.5rem' }}>
             <select
               name="type"
+              data-cy="select-category"
               id="type"
               required
               value={newNoteFormData.type}
@@ -123,12 +126,14 @@ const Form = () => {
             isDisable={newNoteFormData.type === 'default'}
             disabled={newNoteFormData.type === 'default'}
             type="submit"
+            data-cy="btn-submit-note"
           >
             <div className="alert">Mandatory Category </div>
             {currentNote === null ? 'ADD' : 'UPDATE'}
           </Button>
           <Button
             type="button"
+            data-cy="btn-cancel-note"
             onClick={() => {
               setIsOpenModal(false)
               setCurrentNote(null)

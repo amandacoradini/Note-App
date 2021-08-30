@@ -81,7 +81,11 @@ const App = () => {
         <GlobalStyle />
         <StyledSearch>
           <img src={search} alt="lupe" style={{ marginRight: '2%', width: '1rem' }} />
-          <input placeholder="Search notes..." onChange={e => setWordFilter(e.target.value)} />
+          <input
+            data-cy="search-notes"
+            placeholder="Search notes..."
+            onChange={e => setWordFilter(e.target.value)}
+          />
         </StyledSearch>
         <div
           style={{
@@ -95,6 +99,7 @@ const App = () => {
           <Menu>
             {types.map(item => (
               <MenuItem
+                data-cy={`${item.name.toLowerCase()}-type`}
                 key={`${item.name}`}
                 onClick={() => setTypeFilter(item.name)}
                 color={typeFilter === item.name ? item.color : 'none'}
@@ -104,7 +109,7 @@ const App = () => {
               </MenuItem>
             ))}
           </Menu>
-          <AddButton type="button" onClick={() => setIsOpenModal(true)}>
+          <AddButton type="button" data-cy="btn-add" onClick={() => setIsOpenModal(true)}>
             <img src={add} alt="+" /> ADD NOTE
           </AddButton>
         </div>

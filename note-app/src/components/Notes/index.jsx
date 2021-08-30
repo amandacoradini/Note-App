@@ -38,6 +38,7 @@ const Notes = ({ notes }) => {
         <Container
           key={note.id}
           backgroundColor={note.complete ? 'rgba(40, 46, 41, 0.6)' : note.background}
+          data-cy="card-note"
         >
           {popUp && note.id === selectedNote ? (
             <PopUp id={note.id} isVisible={note.id}>
@@ -45,6 +46,7 @@ const Notes = ({ notes }) => {
               <div className="footer">
                 <Button
                   type="button"
+                  data-cy="btn-delete-note-popup"
                   onClick={() => {
                     const newList = noteList.filter(item => item.id !== note.id)
                     setNoteList(newList)
@@ -64,6 +66,7 @@ const Notes = ({ notes }) => {
               <StyledCheckbox>
                 <input
                   type="checkbox"
+                  data-cy="check-note"
                   id={note.id}
                   checked={note.complete}
                   readOnly
@@ -71,6 +74,7 @@ const Notes = ({ notes }) => {
                 />
                 <Icon
                   id={note.id}
+                  data-cy="check-note-icon"
                   viewBox="0 0 24 24"
                   style={note.complete ? { visibility: 'visible' } : { visibility: 'hidden' }}
                   onClick={handleOnChange}
@@ -83,6 +87,7 @@ const Notes = ({ notes }) => {
             <div className="card-icons">
               <button
                 type="button"
+                data-cy="btn-edit-note"
                 onClick={() => {
                   setIsOpenModal(true)
                   setCurrentNote({
@@ -104,6 +109,7 @@ const Notes = ({ notes }) => {
                   setPopUp(value => !value)
                   setSelectedNote(note.id)
                 }}
+                data-cy="btn-delete-note"
               >
                 <img style={{ marginLeft: '1rem' }} src={trash} alt="trash" />
               </button>
