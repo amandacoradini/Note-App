@@ -27,6 +27,7 @@ export const Container = styled.div`
     height: min-content;
     overflow: visible;
     -webkit-line-clamp: none;
+    margin-bottom: 1rem;
   }
 
   .withdrawn {

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from '../../styles/theme'
 
 export const Container = styled.div`
@@ -98,4 +98,33 @@ export const Button = styled.button`
   background: transparent;
   border: 0;
   padding: 1rem;
+
+  ${props =>
+    props.isDisable &&
+    css`
+      color: rgba(33, 150, 243, 0.5);
+    `};
+  .alert {
+    width: min-content;
+    height: min-content;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: ${theme.text.secondary};
+    position: absolute;
+    bottom: 23%;
+    right: 28%;
+    background: transparent;
+    box-shadow: 0px 3px 6px ${theme.shadow};
+    visibility: hidden;
+  }
+
+  ${props =>
+    props.isDisable &&
+    css`
+      &:hover {
+        .alert {
+          visibility: visible;
+        }
+      }
+    `};
 `

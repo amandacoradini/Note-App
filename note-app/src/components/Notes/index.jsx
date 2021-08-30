@@ -9,32 +9,27 @@ import { Container, Header, Body, StyledCheckbox, Icon, Footer, PopUp, Button } 
 const Notes = ({ notes }) => {
   const { setIsOpenModal } = useModal()
   const { setCurrentNote } = useNote()
-  const { noteList, setNoteList, setCompletedNotes, completedNotes } = useNoteList()
+  const { noteList, setNoteList } = useNoteList()
   const [popUp, setPopUp] = useState(false)
   const [selectedNote, setSelectedNote] = useState()
 
   useEffect(() => {
     const storedNotes = JSON.parse(localStorage.getItem('@note-app/notes'))
     if (storedNotes !== null) setNoteList(storedNotes)
-
-    const storedCompletedNotes = JSON.parse(localStorage.getItem('@note-app/completed-notes'))
-    if (storedCompletedNotes !== null) setCompletedNotes(storedCompletedNotes)
-  }, [setCompletedNotes, setNoteList])
+  }, [setNoteList])
 
   useEffect(() => {
     localStorage.setItem('@note-app/notes', JSON.stringify(noteList))
-    localStorage.setItem('@note-app/completed-notes', JSON.stringify(completedNotes))
-  }, [noteList, completedNotes])
+  }, [noteList])
 
   const handleOnChange = useCallback(
     e => {
       const changedNote = noteList.filter(note => note.id === e.currentTarget.id)
       const list = noteList.filter(note => note.id !== e.currentTarget.id)
-      const newList = [...list, { ...changedNote[0], complete: !changedNote[0].complete }]
+      const newList = [{ ...changedNote[0], complete: !changedNote[0].complete }, ...list]
       setNoteList(newList)
-      setCompletedNotes(newList.filter(note => note.complete))
     },
-    [noteList, setCompletedNotes, setNoteList]
+    [noteList, setNoteList]
   )
 
   return (
@@ -52,9 +47,7 @@ const Notes = ({ notes }) => {
                   type="button"
                   onClick={() => {
                     const newList = noteList.filter(item => item.id !== note.id)
-                    const newCompletedList = completedNotes.filter(item => item.id !== note.id)
                     setNoteList(newList)
-                    setCompletedNotes(newCompletedList)
                     setPopUp(false)
                   }}
                 >

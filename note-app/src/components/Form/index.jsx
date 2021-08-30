@@ -14,7 +14,7 @@ const Form = () => {
     type: 'default'
   })
   const { currentNote, setCurrentNote } = useNote()
-  const { noteList, setNoteList, completedNotes, setCompletedNotes } = useNoteList()
+  const { noteList, setNoteList } = useNoteList()
   const { setIsOpenModal } = useModal()
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const Form = () => {
       }
 
       const { title, description, type } = newNoteFormData
+
       const newNote = {
         title,
         description,
@@ -47,11 +48,7 @@ const Form = () => {
       }
 
       let newList = noteList
-      if (currentNote !== null) {
-        newList = newList.filter(note => note?.id !== currentNote?.id)
-        const newCompletedList = completedNotes.filter(note => note?.id !== currentNote?.id)
-        setCompletedNotes(newCompletedList)
-      }
+      if (currentNote !== null) newList = newList.filter(note => note?.id !== currentNote?.id)
 
       newList = [newNote, ...newList]
 
@@ -64,16 +61,7 @@ const Form = () => {
       })
       setIsOpenModal(false)
     },
-    [
-      completedNotes,
-      currentNote,
-      newNoteFormData,
-      noteList,
-      setCompletedNotes,
-      setCurrentNote,
-      setIsOpenModal,
-      setNoteList
-    ]
+    [currentNote, newNoteFormData, noteList, setCurrentNote, setIsOpenModal, setNoteList]
   )
 
   return (
@@ -131,7 +119,14 @@ const Form = () => {
           </Styled>
         </div>
         <div className="footer">
-          <Button type="submit">{currentNote === null ? 'ADD' : 'UPDATE'}</Button>
+          <Button
+            isDisable={newNoteFormData.type === 'default'}
+            disabled={newNoteFormData.type === 'default'}
+            type="submit"
+          >
+            <div className="alert">Mandatory Category </div>
+            {currentNote === null ? 'ADD' : 'UPDATE'}
+          </Button>
           <Button
             type="button"
             onClick={() => {

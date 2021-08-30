@@ -4,10 +4,9 @@ export const NoteListContext = createContext({})
 
 export const NoteListProvider = ({ children }) => {
   const [noteList, setNoteList] = useState([])
-  const [completedNotes, setCompletedNotes] = useState([])
 
   return (
-    <NoteListContext.Provider value={{ noteList, setNoteList, completedNotes, setCompletedNotes }}>
+    <NoteListContext.Provider value={{ noteList, setNoteList }}>
       {children}
     </NoteListContext.Provider>
   )
@@ -15,6 +14,6 @@ export const NoteListProvider = ({ children }) => {
 
 export function useNoteList() {
   const context = useContext(NoteListContext)
-  const { noteList, setNoteList, completedNotes, setCompletedNotes } = context
-  return { noteList, setNoteList, completedNotes, setCompletedNotes }
+  const { noteList, setNoteList } = context
+  return { noteList, setNoteList }
 }

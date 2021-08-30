@@ -27,7 +27,8 @@ const App = () => {
   const [wordFilter, setWordFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('All')
   const { isOpenModal, setIsOpenModal } = useModal()
-  const { noteList, completedNotes } = useNoteList()
+  const { noteList } = useNoteList()
+  const [completedNotes, setCompletedNotes] = useState(0)
 
   const types = [
     {
@@ -47,6 +48,11 @@ const App = () => {
       color: theme.filterType.personal
     }
   ]
+
+  useEffect(() => {
+    const list = noteList.filter(note => note.complete === true)
+    setCompletedNotes(list.length)
+  }, [noteList])
 
   useEffect(() => {
     let list = noteList
@@ -113,11 +119,11 @@ const App = () => {
           </div>
         ) : (
           <div className="progress-bar-style">
-            {completedNotes.length !== 0
-              ? `You have ${completedNotes.length}/${noteList.length} notes completed`
-              : 'You have completed all notes'}
+            {completedNotes === noteList.length
+              ? 'You have completed all notes'
+              : `You have ${completedNotes}/${noteList.length} notes completed`}
             <Progress>
-              <Bar width={(completedNotes.length * 100) / noteList.length} />
+              <Bar width={(completedNotes * 100) / noteList.length} />
             </Progress>
           </div>
         )}
